@@ -3,7 +3,8 @@ import Counter from "./components/Counter";
 import PostItem from "./components/PostItem";
 import PostList from "./components/PostList";
 import MyButton from "./components/UI/button/MyButton";
-import MyInput from "./components/UI/button/input/MyInput";
+import MyInput from "./components/UI/input/MyInput";
+import PostForm from "./components/PostForm";
 import "./styles/App.css";
 
 function App() {
@@ -13,23 +14,13 @@ function App() {
     {id: 3, title: 'JavaScript-3', body: "Description"},
   ])
 
-  const [title, setTitle] = useState('');
-
-  const bodyInputRef = useRef();
-
-  const addNewPost = (e) => {
-    e.preventDefault()
-    console.log(title)
-    console.log(bodyInputRef.current.value)
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
   }
 
   return (
     <div className="App">
-      <form>
-        <MyInput value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="Post name"/>
-        <MyInput ref={bodyInputRef} type="text" placeholder="Post description"/>
-        <MyButton onClick={addNewPost}>Create post</MyButton>
-      </form>
+      <PostForm create={createPost}/>
       <PostList posts={posts} title='List posts 1'/>
     </div>
   );
